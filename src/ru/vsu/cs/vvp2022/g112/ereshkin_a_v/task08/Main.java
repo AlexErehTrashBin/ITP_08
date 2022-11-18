@@ -16,37 +16,44 @@ public class Main {
     }
 
     public static InputArgs parseCmdArgs(String[] args) {
-        InputArgs inputArgs = new InputArgs();
-        // Нет аргументов
-        if (args.length == 0){
-            inputArgs.help = true;
-            inputArgs.error = true;
-            return inputArgs;
+        InputArgs params = new InputArgs();
+        if (args.length > 0) {
+            if (args[0].equals("-h")) {
+                params.help = true;
+                return params;
+            }
+            if (args[0].equals("-w")) {
+                params.window = true;
+                return params;
+            }
+            if (!args[0].equals("-r") && !args[0].equals("-c")) {
+                params.error = true;
+                params.help = true;
+                return params;
+            }
+            if (args[0].equals("-r")) {
+            } else {
+            }
+            if (args.length < 2) {
+                params.help = true;
+                params.error = true;
+                return params;
+            }
+
+            params.inputFile = args[1];
+            if (args.length > 2) {
+                params.outputFile = args[2];
+            }
+        } else {
+            params.help = true;
+            params.error = true;
         }
-        // Вывести справку
-        if (args[0].equals("--help")) {
-            inputArgs.help = true;
-        }
-        // Запустить оконный интерфейс
-        if (args[0].equals("--window")) {
-            inputArgs.window = true;
-            //return inputArgs;
-        }
-        if (args.length == 2) {
-            inputArgs.inputFile = args[1];
-            //return inputArgs;
-        }
-        if (args.length > 2) {
-            inputArgs.outputFile = args[2];
-        }
-        return inputArgs;
+        return params;
     }
 
     public static void winMain() {
-        //SwingUtils.setLookAndFeelByName("Windows");
+        SwingUtils.setLookAndFeelByName("Windows");
         Locale.setDefault(Locale.ROOT);
-        // Для красоты
-        //FlatLightLaf.setup();
 
         //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         SwingUtils.setDefaultFont("Microsoft Sans Serif", 18);

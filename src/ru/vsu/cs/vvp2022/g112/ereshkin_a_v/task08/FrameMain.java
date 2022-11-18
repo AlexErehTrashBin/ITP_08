@@ -9,7 +9,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
-import static ru.vsu.cs.vvp2022.g112.ereshkin_a_v.task08.Task.isMatrixIncludesPattern;
+import static ru.vsu.cs.vvp2022.g112.ereshkin_a_v.task08.Task.doesMatrixIncludeSpiralPattern;
 
 
 public class FrameMain extends JFrame {
@@ -57,7 +57,10 @@ public class FrameMain extends JFrame {
 
         JTableUtils.writeArrayToJTable(tableInput, new int[][]{
                 {0, 1, 2, 3, 4},
-                {5, 6, 7, 8, 9}
+                {15, 16, 17, 18, 5},
+                {14, 23, 24, 19, 6},
+                {13, 22, 21, 20, 7},
+                {12, 11, 10, 9, 8}
         });
 
         this.pack();
@@ -104,7 +107,7 @@ public class FrameMain extends JFrame {
                     if (!file.toLowerCase().endsWith(".txt")) {
                         file += ".txt";
                     }
-                    //ArrayUtils.writeArrayToFile(file, result);
+                    FileUtils.writeResultToFile(file, result);
                 }
             } catch (Exception e) {
                 SwingUtils.showErrorMessageBox(e);
@@ -113,7 +116,7 @@ public class FrameMain extends JFrame {
         buttonCheckPattern.addActionListener(actionEvent -> {
             try {
                 int[][] matrix = JTableUtils.readIntMatrixFromJTable(tableInput);
-                patternCheckResultLabel.setText(isMatrixIncludesPattern(matrix) ? "Соответствует паттерну" : "Не соответствует паттерну");
+                patternCheckResultLabel.setText(doesMatrixIncludeSpiralPattern(matrix) ? "Соответствует паттерну" : "Не соответствует паттерну");
             } catch (Exception e) {
                 SwingUtils.showErrorMessageBox(e);
             }
